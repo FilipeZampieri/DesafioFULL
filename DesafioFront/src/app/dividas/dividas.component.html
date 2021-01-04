@@ -1,0 +1,70 @@
+<div class="row">
+  <div class="col-sm-6" *ngIf="dividaSelecionada">
+    <app-titulo [titulo]="(dividaSelecionada.id === 0 ? 'Novo Divida' : 'Cod. Divida: ' + dividaSelecionada.id)">
+      <button class="btn btn-sm btn-outline-danger" (click)="voltar()">Fechar</button>
+    </app-titulo>
+    <form [formGroup]="dividaForm" (submit)="dividaSubmit()">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Numero</label>
+        <input type="text" formControlName="numero" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="formGroupExampleInput2">Devedor</label>
+        <input type="text" formControlName="devedor" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="formGroupExampleInput2">CPF</label>
+        <input type="text" formControlName="cpf" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="formGroupExampleInput2">Juros</label>
+        <input type="text" formControlName="juros" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="formGroupExampleInput2">Multa</label>
+        <input type="text" formControlName="multa" class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="formGroupExampleInput2">Quantidade de Parcelas</label>
+        <input type="text" formControlName="plano" class="form-control">
+      </div>
+      <div class="form-group">
+        <hr>
+        <button class="btn btn-success" [disabled]="!dividaForm.valid">Enviar</button>
+      </div>
+    </form>
+  </div>
+  <div [ngClass]="{'col-sm-6':dividaSelecionada,'col-sm-12': !dividaSelecionada}">
+    <app-titulo [titulo]="titulo">
+      <button class="btn btn-sm btn-success" (click)="dividaNovo()">Cadastrar Divida</button>
+    </app-titulo>
+
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Visualizar</th>
+          <th scope="col">#</th>
+          <th scope="col">Numero</th>
+          <th scope="col">Devedor</th>
+          <th scope="col">CPF</th>
+          <th scope="col">Juros</th>
+          <th scope="col">Multa</th>
+          <th scope="col">Qtd. Parcelas</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let divida of dividas">
+          <td><button (click)="dividaSelect(divida)" class="btn btn-sm btn-outline-warning text-dark">Detalhe</button>
+          </td>
+          <td scope="row">{{divida.id}}</td>
+          <td>{{divida.numero}}</td>
+          <td>{{divida.devedor}}</td>
+          <td>{{divida.cpf}}</td>
+          <td>{{divida.juros}}</td>
+          <td>{{divida.multa}}</td>
+          <td>{{divida.plano}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
